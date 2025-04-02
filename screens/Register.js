@@ -1,4 +1,4 @@
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, View, Text, Pressable } from "react-native";
 import InputContainer from "../components/InputContainer";
 import InputLabel from "../components/InputLabel";
 import TextBox from "../components/TextInput";
@@ -6,7 +6,7 @@ import PrimaryButton from "../components/PrimaryButton";
 import OutlineButton from "../components/OutlineButton";
 import { Colors } from "../constants/Colors";
 
-function Register() {
+function Register({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
@@ -34,7 +34,9 @@ function Register() {
       </View>
       <View style={styles.loginTextContainer}>
         <Text>Already have an account?.</Text>
-        <Text style={styles.loginNowText}>Login Now!</Text>
+        <Pressable onPress={() => navigation.navigate("loginScreen")}>
+          <Text style={styles.loginNowText}>Login Now!</Text>
+        </Pressable>
       </View>
     </View>
   );
