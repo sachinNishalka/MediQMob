@@ -73,7 +73,6 @@ function StackScreen() {
           headerTitle: "Records",
         }}
       ></Tab.Screen>
-      {/* <Tab.Screen name="doctorDetails" component={DoctorDetails}></Tab.Screen> */}
     </Tab.Navigator>
   );
 }
