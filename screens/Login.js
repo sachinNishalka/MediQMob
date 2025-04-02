@@ -1,4 +1,4 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 
 import InputContainer from "../components/InputContainer";
 import InputLabel from "../components/InputLabel";
@@ -8,7 +8,7 @@ import TextBox from "../components/TextInput";
 
 import { Colors } from "../constants/Colors";
 
-function Login() {
+function Login({ navigation }) {
   return (
     <View style={styles.container}>
       <Image
@@ -27,7 +27,12 @@ function Login() {
       </InputContainer>
 
       <View style={styles.buttonContainer}>
-        <PrimaryButton buttonText="Login"></PrimaryButton>
+        <PrimaryButton
+          buttonText="Login"
+          onPress={() => {
+            navigation.navigate("tabScreen");
+          }}
+        ></PrimaryButton>
         <OutlineButton
           iconName="logo-google"
           buttonText="Sign in with Google"
@@ -36,7 +41,9 @@ function Login() {
 
       <View style={styles.registerTextContainer}>
         <Text>Don`t have an account.</Text>
-        <Text style={styles.registerNowText}>Register Now!</Text>
+        <Pressable onPress={() => navigation.navigate("registerScreen")}>
+          <Text style={styles.registerNowText}>Register Now!</Text>
+        </Pressable>
       </View>
     </View>
   );

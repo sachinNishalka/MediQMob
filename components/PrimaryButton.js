@@ -2,9 +2,12 @@ import { Pressable, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "../constants/Colors";
 
-function PrimaryButton({ buttonText }) {
+function PrimaryButton({ buttonText, onPress }) {
   return (
-    <Pressable style={({ pressed }) => [pressed && styles.onPress]}>
+    <Pressable
+      onPress={onPress}
+      style={({ pressed }) => [pressed && styles.onPress]}
+    >
       <View style={styles.buttonContainer}>
         <Text style={styles.buttonTextStyle}>{buttonText}</Text>
       </View>
