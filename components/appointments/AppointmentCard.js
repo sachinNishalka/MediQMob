@@ -1,12 +1,21 @@
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { Colors } from "../../constants/Colors";
+import { useNavigation } from "@react-navigation/native";
 
 function AppointmentCard() {
+  const navigation = useNavigation();
   return (
-    <Pressable style={styles.cardContainer}>
+    <Pressable
+      style={({ pressed }) => [styles.cardContainer, pressed && styles.pressed]}
+      onPress={() => {
+        navigation.navigate("appointmentDetails");
+      }}
+    >
       <View style={styles.doctorInfoContainer}>
         <Text style={styles.doctorName}>Dr. John Doe</Text>
-        <Text style={styles.availableText}>Available</Text>
+        <View style={styles.availableTextContainer}>
+          <Text style={styles.availableText}>Available</Text>
+        </View>
       </View>
       <View style={styles.numberContainer}>
         <Text style={styles.numberText}>15</Text>
@@ -45,7 +54,7 @@ const styles = StyleSheet.create({
   },
   availableText: {
     fontSize: 15,
-    color: Colors.accentColor,
+    color: Colors.secondaryGreen,
     fontWeight: "semibold",
   },
   numberContainer: {
@@ -56,7 +65,7 @@ const styles = StyleSheet.create({
     height: 75,
     justifyContent: "center",
     alignItems: "center",
-    borderColor: "#e55451",
+    borderColor: Colors.dangerColor,
   },
   numberText: {
     fontWeight: "bold",
@@ -65,4 +74,14 @@ const styles = StyleSheet.create({
   },
   dateText: { marginBottom: 10, fontSize: 15, fontWeight: "bold" },
   timeText: { fontSize: 15, fontWeight: "bold" },
+  pressed: {
+    opacity: 0.7,
+  },
+  availableTextContainer: {
+    padding: 5,
+    borderWidth: 1,
+    borderColor: Colors.accentColor,
+    borderRadius: 5,
+    alignSelf: "flex-start",
+  },
 });

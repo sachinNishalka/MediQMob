@@ -12,6 +12,7 @@ import BookAnAppointment from "./screens/BookAnAppointment";
 import Reports from "./screens/Reports";
 import Records from "./screens/Records";
 import DoctorDetails from "./screens/DoctorDetails";
+import AppointmentDetails from "./screens/AppointmentDetails";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -101,6 +102,14 @@ export default function App() {
           }}
           name="doctorDetails"
           component={DoctorDetails}
+        ></Stack.Screen>
+        <Stack.Screen
+          name="appointmentDetails"
+          component={AppointmentDetails}
+          options={{
+            headerShown: true,
+            headerTitle: "Appointment",
+          }}
         ></Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>

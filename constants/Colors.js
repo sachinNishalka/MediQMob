@@ -4,4 +4,6 @@ export const Colors = {
   themeBackground: "#F5F5F5",
   inactiveMenuColor: "#afb7ff",
   secondaryColor: "#7e8bff",
+  secondaryGreen: "#14935e",
+  dangerColor: "#e55451",
 };
