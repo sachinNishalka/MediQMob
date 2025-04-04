@@ -1,8 +1,9 @@
-import { View, Text, StyleSheet, Image } from "react-native";
-import { Colors } from "../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { Image, StyleSheet, Text, View } from "react-native";
 import PrimaryButton from "../components/PrimaryButton";
 import NumberContainer from "../components/appointmentDetails/NumberContainer";
+import { Colors } from "../constants/Colors";
+import { CountdownCircleTimer } from "react-native-countdown-circle-timer";
 
 function AppointmentDetails() {
   return (
@@ -34,7 +35,7 @@ function AppointmentDetails() {
             <Text style={styles.paidText}>PAID</Text>
           </View>
           <PrimaryButton
-            buttonText="Cansel"
+            buttonText="Cancel"
             color={Colors.dangerColor}
           ></PrimaryButton>
         </View>
@@ -42,6 +43,21 @@ function AppointmentDetails() {
       <View style={styles.numberContainer}>
         <NumberContainer number={13} textBelow="You"></NumberContainer>
         <NumberContainer number={10} textBelow="Now"></NumberContainer>
+      </View>
+      <View style={styles.counterContainer}>
+        <CountdownCircleTimer
+          isPlaying
+          duration={7}
+          colors={[Colors.primaryColor]}
+        >
+          {({ remainingTime }) => (
+            <View style={styles.counterTextContainer}>
+              <Text style={styles.mainText}>You have</Text>
+              <Text style={styles.secondaryText}>{remainingTime}</Text>
+              <Text style={styles.mainText}>left</Text>
+            </View>
+          )}
+        </CountdownCircleTimer>
       </View>
     </View>
   );
@@ -120,5 +136,23 @@ const styles = StyleSheet.create({
   numberContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  counterContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  counterTextContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  mainText: {
+    fontSize: 20,
+    color: Colors.secondaryGreen,
+  },
+  secondaryText: {
+    fontSize: 22,
+    color: Colors.primaryColor,
+    fontWeight: "bold",
+    marginVertical: 5,
   },
 });
