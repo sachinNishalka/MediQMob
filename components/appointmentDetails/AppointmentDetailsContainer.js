@@ -3,7 +3,7 @@ import { Ionicons } from "@expo/vector-icons";
 import PrimaryButton from "../PrimaryButton";
 import { Colors } from "../../constants/Colors";
 
-function AppointmentDetails() {
+function AppointmentDetailsContainer() {
   return (
     <View style={styles.detailsContainer}>
       <View style={styles.imageContainer}>
@@ -37,7 +37,7 @@ function AppointmentDetails() {
   );
 }
 
-export default AppointmentDetails;
+export default AppointmentDetailsContainer;
 
 const styles = StyleSheet.create({
   detailsContainer: {
@@ -75,19 +75,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
   },
-  availabilityText: {
-    fontSize: 12,
-    fontWeight: "semibold",
-    color: Colors.secondaryGreen,
-  },
-  availabilityTextContainer: {
-    padding: 5,
-    borderWidth: 1,
-    borderColor: Colors.accentColor,
-    alignSelf: "flex-end",
-    borderRadius: 5,
-    backgroundColor: "#ffffff",
-  },
+
   paidTextContainer: {
     borderWidth: 1,
     alignItems: "center",

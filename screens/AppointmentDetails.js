@@ -1,8 +1,8 @@
-import { Image, StyleSheet, Text, View } from "react-native";
-import PrimaryButton from "../components/PrimaryButton";
+import { StyleSheet, Text, View } from "react-native";
 import NumberContainer from "../components/appointmentDetails/NumberContainer";
-import { Colors } from "../constants/Colors";
 import Timer from "../components/appointmentDetails/Timer";
+import AppointmentDetailsContainer from "../components/appointmentDetails/AppointmentDetailsContainer";
+import { Colors } from "../constants/Colors";
 
 function AppointmentDetails() {
   return (
@@ -10,7 +10,7 @@ function AppointmentDetails() {
       <View style={styles.availabilityTextContainer}>
         <Text style={styles.availabilityText}>Available</Text>
       </View>
-      <AppointmentDetails></AppointmentDetails>
+      <AppointmentDetailsContainer></AppointmentDetailsContainer>
       <View style={styles.numberContainer}>
         <NumberContainer number={13} textBelow="You"></NumberContainer>
         <NumberContainer number={10} textBelow="Now"></NumberContainer>
@@ -31,5 +31,18 @@ const styles = StyleSheet.create({
   numberContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
+  },
+  availabilityText: {
+    fontSize: 12,
+    fontWeight: "semibold",
+    color: Colors.secondaryGreen,
+  },
+  availabilityTextContainer: {
+    padding: 5,
+    borderWidth: 1,
+    borderColor: Colors.accentColor,
+    alignSelf: "flex-end",
+    borderRadius: 5,
+    backgroundColor: "#ffffff",
   },
 });
