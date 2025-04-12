@@ -1,6 +1,11 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../constants/Colors";
+import { openPDFAndroid } from "../services/openPDFAndroid";
+
+const pdfUrl =
+  "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf";
+const fileName = "mydownloadedfile.pdf";
 
 function Reports() {
   return (
@@ -10,6 +15,7 @@ function Reports() {
           styles.cardContainer,
           pressed && styles.pressed,
         ]}
+        onPress={() => openPDFAndroid(pdfUrl)}
       >
         <View>
           <Text style={styles.reportTitle}>Blood Report</Text>
