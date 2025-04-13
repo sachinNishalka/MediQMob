@@ -1,38 +1,25 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 
 import Card from "../components/bookAnAppointment/Card";
-
-const dummyList = [
-  {
-    id: "1",
-    profile_image_url:
-      "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/doctorImages//1.png",
-    fullname: "Jane Smith",
-    specialization: "Dentist",
-  },
-  {
-    id: "2",
-    profile_image_url:
-      "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/doctorImages//1.png",
-    fullname: "Jone Doe",
-    specialization: "Dermatologist",
-  },
-  {
-    id: "3",
-    profile_image_url:
-      "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/doctorImages//1.png",
-    fullname: "Lisa Kumar",
-    specialization: "Pediatricians",
-  },
-];
+import useDoctors from "../hooks/useDoctors";
 
 function BookAnAppointment() {
+  const { isLoading, doctors, error } = useDoctors();
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <FlatList
-        data={dummyList}
+        data={doctors}
         renderItem={({ item }) => <Card data={item}></Card>}
-        
+        keyExtractor={(item) => item.id}
       ></FlatList>
     </View>
   );

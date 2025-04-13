@@ -2,6 +2,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Colors } from "./constants/Colors";
 
@@ -16,6 +17,14 @@ import AppointmentDetails from "./screens/AppointmentDetails";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 0,
+    },
+  },
+});
 
 function StackScreen() {
   return (
@@ -80,38 +89,46 @@ function StackScreen() {
 
 export default function App() {
   return (
-    <NavigationContainer
-      theme={{
-        ...DefaultTheme,
-        colors: { ...DefaultTheme.colors, background: Colors.themeBackground },
-      }}
-    >
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-          headerTintColor: Colors.primaryColor,
+    <QueryClientProvider client={queryClient}>
+      <NavigationContainer
+        theme={{
+          ...DefaultTheme,
+          colors: {
+            ...DefaultTheme.colors,
+            background: Colors.themeBackground,
+          },
         }}
       >
-        <Stack.Screen name="loginScreen" component={Login}></Stack.Screen>
-        <Stack.Screen name="registerScreen" component={Register}></Stack.Screen>
-        <Stack.Screen name="tabScreen" component={StackScreen}></Stack.Screen>
-        <Stack.Screen
-          options={{
-            headerShown: true,
-            headerTitle: "Make a channel",
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+            headerTintColor: Colors.primaryColor,
           }}
-          name="doctorDetails"
-          component={DoctorDetails}
-        ></Stack.Screen>
-        <Stack.Screen
-          name="appointmentDetails"
-          component={AppointmentDetails}
-          options={{
-            headerShown: true,
-            headerTitle: "Appointment",
-          }}
-        ></Stack.Screen>
-      </Stack.Navigator>
-    </NavigationContainer>
+        >
+          <Stack.Screen name="loginScreen" component={Login}></Stack.Screen>
+          <Stack.Screen
+            name="registerScreen"
+            component={Register}
+          ></Stack.Screen>
+          <Stack.Screen name="tabScreen" component={StackScreen}></Stack.Screen>
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerTitle: "Make a channel",
+            }}
+            name="doctorDetails"
+            component={DoctorDetails}
+          ></Stack.Screen>
+          <Stack.Screen
+            name="appointmentDetails"
+            component={AppointmentDetails}
+            options={{
+              headerShown: true,
+              headerTitle: "Appointment",
+            }}
+          ></Stack.Screen>
+        </Stack.Navigator>
+      </NavigationContainer>
+    </QueryClientProvider>
   );
 }
