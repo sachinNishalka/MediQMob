@@ -32,7 +32,7 @@ function BookAnAppointment() {
       <FlatList
         data={dummyList}
         renderItem={({ item }) => <Card data={item}></Card>}
-        numColumns={2}
+        
       ></FlatList>
     </View>
   );
