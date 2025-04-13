@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     flex: 1,
     // backgroundColor: Colors.primaryColor,
-    borderRadius: 10,
+    // borderRadius: 10,
   },
   details: {
     flex: 1,
