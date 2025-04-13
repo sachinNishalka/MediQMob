@@ -7,7 +7,7 @@ const records = [
     profileImage: "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/doctorImages//1.png",
     title: "Dr. John Doe",
     date: "2024-05-01",
-    prescriptionImageUri: "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/prescriptionImages/1.png",
+    prescriptionImageUri: "https://picsum.photos/200/300",
   },
 ];
 

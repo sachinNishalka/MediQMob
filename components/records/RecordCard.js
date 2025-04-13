@@ -1,10 +1,11 @@
 import { Text, View, StyleSheet, Image, Pressable } from "react-native";
 import { Colors } from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
+import { openImageAndroid } from "../../services/openImageAndroid";
 
 function RecordCard({title, date, onPress, profileImage, prescriptionImageUri}) {
   return (
-    <Pressable style={({pressed})=>[styles.prescriptionCard, pressed && styles.pressed]} onPress={onPress}>
+    <Pressable style={({pressed})=>[styles.prescriptionCard, pressed && styles.pressed]} onPress={async ()=>{await openImageAndroid(prescriptionImageUri)}}>
       <View style={styles.imageContainer}>
         <Image style={styles.imageStyle} source={{uri:profileImage}}></Image>
       </View>
