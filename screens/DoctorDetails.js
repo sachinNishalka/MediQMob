@@ -8,6 +8,7 @@ import TimeSelector from "../components/doctorDetails/TimeSelector";
 
 function DoctorDetails() {
   const [selected, setSelected] = useState("");
+  
   return (
     <View style={styles.container}>
       <ScrollView>
