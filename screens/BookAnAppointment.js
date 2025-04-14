@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View, Text } from "react-native";
 import Card from "../components/bookAnAppointment/Card";
 import useDoctors from "../hooks/useDoctors";
 import Loader from "../components/Loader";
+import Error from "../components/Error";
 
 function BookAnAppointment() {
   const { isLoading, doctors, error } = useDoctors();
@@ -12,7 +13,7 @@ function BookAnAppointment() {
   }
 
   if (error) {
-    return <Text>Error: {error.message}</Text>;
+    return <Error message={error.message}></Error>;
   }
 
   return (
