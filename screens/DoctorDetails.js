@@ -5,15 +5,20 @@ import useDoctor from "../hooks/useDoctor";
 
 import CustomCalendar from "../components/doctorDetails/CustomCalendar";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
-import TimeSelector from "../components/doctorDetails/TimeSelector";
+import Time from "../components/doctorDetails/Time";
 import Error from "../components/Error";
 import Loader from "../components/Loader";
 import PrimaryButton from "../components/PrimaryButton";
 
 function DoctorDetails({ route }) {
-  const [selected, setSelected] = useState("");
+  const [selectedTime, setSelectedTime] = useState(null);
+
   const { doctorId } = route.params;
   const { doctor, isLoading, error } = useDoctor(doctorId);
+
+  const handleTimeSelect = (time) => {
+    setSelectedTime(time);
+  };
 
   if (isLoading) {
     return <Loader></Loader>;
@@ -37,9 +42,13 @@ function DoctorDetails({ route }) {
         <CustomCalendar enabledDays={doctor.available_days}></CustomCalendar>
 
         <View style={styles.timeSelectorArea}>
-          <TimeSelector time="4:00"></TimeSelector>
-          <TimeSelector time="6:00"></TimeSelector>
+          <Time
+            times={doctor.available_time_slots}
+            selectedTime={selectedTime}
+            onSelect={handleTimeSelect}
+          />
         </View>
+
         <PrimaryButton buttonText="Reserve"></PrimaryButton>
       </ScrollView>
     </View>
@@ -56,8 +65,6 @@ const styles = StyleSheet.create({
 
   timeSelectorArea: {
     marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-around",
     marginBottom: 15,
   },
 });

@@ -1,11 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Colors } from "../../constants/Colors";
 
-function TimeSelector({ time }) {
+function TimeSelector({ time, isSelected, onSelect }) {
   return (
-    <View style={styles.timeSelector}>
-      <Text style={styles.timeSelectorText}>{time}</Text>
-    </View>
+    <Pressable
+      style={[styles.timeSelector, isSelected && styles.selectedTimeSelector]}
+      onPress={onSelect}
+    >
+      <Text
+        style={[styles.timeSelectorText, isSelected && styles.selectedTimeText]}
+      >
+        {time}
+      </Text>
+    </Pressable>
   );
 }
 
@@ -17,11 +24,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 5,
     borderColor: Colors.accentColor,
-    borderRadius: 10,
+    borderRadius: 0,
+  },
+  selectedTimeSelector: {
+    backgroundColor: "#ffffff",
   },
   timeSelectorText: {
     fontWeight: "bold",
-    color: Colors.secondaryColor,
+    color: Colors.secondaryGreen,
     fontSize: 16,
+  },
+  selectedTimeText: {
+    color: Colors.primaryColor,
   },
 });
