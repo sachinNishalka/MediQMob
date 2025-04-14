@@ -9,6 +9,7 @@ import useDoctor from "../hooks/useDoctor";
 import PrimaryButton from "../components/PrimaryButton";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
 import TimeSelector from "../components/doctorDetails/TimeSelector";
+import Loader from "../components/Loader";
 
 function DoctorDetails({ route }) {
   const [selected, setSelected] = useState("");
@@ -16,7 +17,7 @@ function DoctorDetails({ route }) {
   const { doctor, isLoading, error } = useDoctor(doctorId);
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader></Loader>;
   }
 
   if (error) {
