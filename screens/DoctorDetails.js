@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from "react-native";
 
 import useDoctor from "../hooks/useDoctor";
 
-import CustomCalendar from "../components/CustomCalendar";
+import CustomCalendar from "../components/doctorDetails/CustomCalendar";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
 import TimeSelector from "../components/doctorDetails/TimeSelector";
 import Error from "../components/Error";
