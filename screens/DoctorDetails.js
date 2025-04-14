@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { Calendar } from "react-native-calendars";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import useDoctor from "../hooks/useDoctor";
 
+import CustomCalendar from "../components/CustomCalendar";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
 import TimeSelector from "../components/doctorDetails/TimeSelector";
+import Error from "../components/Error";
 import Loader from "../components/Loader";
 import PrimaryButton from "../components/PrimaryButton";
-import Error from "../components/Error";
 
 function DoctorDetails({ route }) {
   const [selected, setSelected] = useState("");
@@ -33,18 +33,9 @@ function DoctorDetails({ route }) {
           description={doctor.about}
           imageUri={doctor.profile_image_url}
         ></DoctorInformation>
-        <Calendar
-          onDayPress={(day) => {
-            setSelected(day.dateString);
-          }}
-          markedDates={{
-            [selected]: {
-              selected: true,
-              disableTouchEvent: true,
-              selectedDotColor: "orange",
-            },
-          }}
-        />
+
+        <CustomCalendar enabledDays={doctor.available_days}></CustomCalendar>
+
         <View style={styles.timeSelectorArea}>
           <TimeSelector time="4:00"></TimeSelector>
           <TimeSelector time="6:00"></TimeSelector>
