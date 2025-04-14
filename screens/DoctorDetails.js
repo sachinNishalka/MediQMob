@@ -1,15 +1,14 @@
 import { useState } from "react";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
-import { Calendar, LocaleConfig } from "react-native-calendars";
-
-import { Colors } from "../constants/Colors";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Calendar } from "react-native-calendars";
 
 import useDoctor from "../hooks/useDoctor";
 
-import PrimaryButton from "../components/PrimaryButton";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
 import TimeSelector from "../components/doctorDetails/TimeSelector";
 import Loader from "../components/Loader";
+import PrimaryButton from "../components/PrimaryButton";
+import Error from "../components/Error";
 
 function DoctorDetails({ route }) {
   const [selected, setSelected] = useState("");
@@ -21,7 +20,7 @@ function DoctorDetails({ route }) {
   }
 
   if (error) {
-    return <Text>Error: {error.message}</Text>;
+    return <Error message={error.message}></Error>;
   }
 
   return (
