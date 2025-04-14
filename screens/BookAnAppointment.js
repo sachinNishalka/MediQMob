@@ -2,12 +2,13 @@ import { FlatList, StyleSheet, View, Text } from "react-native";
 
 import Card from "../components/bookAnAppointment/Card";
 import useDoctors from "../hooks/useDoctors";
+import Loader from "../components/Loader";
 
 function BookAnAppointment() {
   const { isLoading, doctors, error } = useDoctors();
 
   if (isLoading) {
-    return <Text>Loading...</Text>;
+    return <Loader></Loader>;
   }
 
   if (error) {
