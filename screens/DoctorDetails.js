@@ -1,18 +1,38 @@
 import { useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 import { Calendar, LocaleConfig } from "react-native-calendars";
+
 import { Colors } from "../constants/Colors";
+
+import useDoctor from "../hooks/useDoctor";
+
 import PrimaryButton from "../components/PrimaryButton";
 import DoctorInformation from "../components/doctorDetails/DoctorInformation";
 import TimeSelector from "../components/doctorDetails/TimeSelector";
 
-function DoctorDetails() {
+function DoctorDetails({ route }) {
   const [selected, setSelected] = useState("");
-  
+  const { doctorId } = route.params;
+  const { doctor, isLoading, error } = useDoctor(doctorId);
+
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
+  }
+
   return (
     <View style={styles.container}>
       <ScrollView>
-        <DoctorInformation></DoctorInformation>
+        <DoctorInformation
+          fullName={doctor.fullName}
+          credentials={doctor.credentials}
+          speciality={doctor.specialization}
+          description={doctor.about}
+          imageUri={doctor.profile_image_url}
+        ></DoctorInformation>
         <Calendar
           onDayPress={(day) => {
             setSelected(day.dateString);

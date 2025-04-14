@@ -1,28 +1,30 @@
 import { View, Image, Text, StyleSheet } from "react-native";
 import { Colors } from "../../constants/Colors";
 
-function DoctorInformation() {
+function DoctorInformation({
+  fullName,
+  credentials,
+  speciality,
+  description,
+  imageUri,
+}) {
   return (
     <View style={styles.doctorInformation}>
       <View style={styles.imageContainer}>
         <Image
           style={styles.imageStyle}
           source={{
-            uri: "https://vabvequftpzqervnzclm.supabase.co/storage/v1/object/public/doctorImages//1.png",
+            uri: imageUri,
           }}
         ></Image>
       </View>
       <View style={styles.doctorDetails}>
-        <Text style={styles.doctorsName}>John Doe</Text>
+        <Text style={styles.doctorsName}>{fullName}</Text>
         <View style={styles.credentialSpecialityContainer}>
-          <Text style={styles.doctorsCredentials}>MBBS, FRCS</Text>
-          <Text style={styles.speciality}>Gynecologist</Text>
+          <Text style={styles.doctorsCredentials}>{credentials}</Text>
+          <Text style={styles.speciality}>{speciality}</Text>
         </View>
-        <Text style={styles.description}>
-          Dr. Williams has a strong commitment to delivering comprehensive
-          medical care, focusing on preventive medicine, early diagnosis, and
-          effective treatment strategies.
-        </Text>
+        <Text style={styles.description}>{description}</Text>
       </View>
     </View>
   );
