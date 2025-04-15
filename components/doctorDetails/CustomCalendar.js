@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import { Calendar } from "react-native-calendars";
+import { Colors } from "../../constants/Colors";
 
 export default function CustomCalendar({
   onDateSelect,
@@ -35,7 +36,7 @@ export default function CustomCalendar({
     if (selected) {
       markedDates[selected] = {
         selected: true,
-        selectedColor: "#007AFF",
+        selectedColor: Colors.primaryColor,
         selectedTextColor: "#FFFFFF",
       };
     }
@@ -87,16 +88,16 @@ export default function CustomCalendar({
       theme={{
         calendarBackground: "#FFFFFF",
         textSectionTitleColor: "#000000",
-        selectedDayBackgroundColor: "#007AFF",
+        selectedDayBackgroundColor: Colors.primaryColor,
         selectedDayTextColor: "#FFFFFF",
-        todayTextColor: "#007AFF",
+        todayTextColor: Colors.primaryColor,
         dayTextColor: "#000000",
         textDisabledColor: "#D9D9D9",
-        dotColor: "#007AFF",
+        dotColor: Colors.primaryColor,
         selectedDotColor: "#FFFFFF",
-        arrowColor: "#007AFF",
+        arrowColor: Colors.primaryColor,
         monthTextColor: "#000000",
-        indicatorColor: "#007AFF",
+        indicatorColor: Colors.primaryColor,
       }}
     />
   );
@@ -111,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
   selectedDay: {
-    backgroundColor: "#007AFF",
+    backgroundColor: Colors.primaryColor,
   },
   disabledDay: {
     opacity: 0.5,
