@@ -17,12 +17,20 @@ function Login({ navigation }) {
       ></Image>
 
       <InputContainer>
-        <InputLabel>Username</InputLabel>
+        <InputLabel
+          labelText="Username"
+          validation={false}
+          validationMessage="Username is required"
+        ></InputLabel>
         <TextBox placeholderText="Enter your username"></TextBox>
       </InputContainer>
 
       <InputContainer>
-        <InputLabel>Password</InputLabel>
+        <InputLabel
+          labelText="Password"
+          validation={false}
+          validationMessage="Password is required"
+        ></InputLabel>
         <TextBox placeholderText="Enter your password"></TextBox>
       </InputContainer>
 
