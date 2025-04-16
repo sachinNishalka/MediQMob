@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { login as loginAPI } from "../services/apiAuth";
 import { ToastAndroid } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 
 export default function useLogin() {
   const navigate = useNavigation();
@@ -16,7 +16,7 @@ export default function useLogin() {
       console.log("Login successful");
       ToastAndroid.show("Login successful", ToastAndroid.SHORT);
       queryClient.setQueryData(["user"], user);
-      navigate.navigate("homeScreen");
+      navigate.dispatch(StackActions.replace("homeScreen"));
     },
     onError: (error) => {
       console.log("Login error:", error);
