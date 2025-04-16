@@ -16,17 +16,52 @@ import PrimaryButton from "../components/PrimaryButton";
 import TextBox from "../components/TextInput";
 import { Colors } from "../constants/Colors";
 
+import {
+  validateAge,
+  validateConfirmPassword,
+  validateEmail,
+  validateFirstName,
+  validateLastName,
+  validatePassword,
+  validateAllFields,
+} from "../utils/validation";
 import useSignup from "../hooks/useSignup";
 
 function Register({ navigation }) {
-  const [firstName, setFirstName] = useState();
-  const [lastName, setLastName] = useState();
-  const [age, setAge] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-  const [confirmPassword, setConfirmPassword] = useState();
+  const [firstName, setFirstName] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+  const [lastName, setLastName] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+  const [age, setAge] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+  const [email, setEmail] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+  const [password, setPassword] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+  const [confirmPassword, setConfirmPassword] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [validForm, setValidForm] = useState(false);
 
   const { signUp, isLoading, error } = useSignup();
 
@@ -41,19 +76,50 @@ function Register({ navigation }) {
     }
   }, [error]);
 
-  const handleRegister = () => {
-    if (password !== confirmPassword) {
-      Alert.alert("Error", "Passwords do not match");
-      return;
+  useEffect(() => {
+    if (
+      firstName.isValid &&
+      lastName.isValid &&
+      age.isValid &&
+      email.isValid &&
+      password.isValid &&
+      confirmPassword.isValid
+    ) {
+      setValidForm(true);
+    } else {
+      setValidForm(false);
     }
-    setIsSubmitting(true);
-    signUp({
-      firstname: firstName,
-      lastname: lastName,
+  }, [firstName, lastName, age, email, password, confirmPassword]);
+
+  const handleRegister = () => {
+    // if the fields are empty
+    validateAllFields(
+      firstName,
+      setFirstName,
+      lastName,
+      setLastName,
       age,
+      setAge,
       email,
+      setEmail,
       password,
-    });
+      setPassword,
+      confirmPassword,
+      setConfirmPassword
+    );
+
+    // if all the fields are valid
+
+    if (validForm) {
+      setIsSubmitting(true);
+      signUp({
+        firstname: firstName.value,
+        lastname: lastName.value,
+        age: age.value,
+        email: email.value,
+        password: password.value,
+      });
+    }
   };
 
   return (
@@ -65,45 +131,83 @@ function Register({ navigation }) {
       <ScrollView>
         <View style={styles.container}>
           <InputContainer>
-            <InputLabel>First Name</InputLabel>
+            <InputLabel
+              labelText="First Name"
+              validation={firstName.isValid}
+              validationMessage={firstName.validationMessage}
+            ></InputLabel>
             <TextBox
               placeholderText="Enter your first name"
-              onChangeText={setFirstName}
+              onChangeText={(text) => {
+                validateFirstName(text, setFirstName);
+              }}
             ></TextBox>
           </InputContainer>
           <InputContainer>
-            <InputLabel>Last Name</InputLabel>
+            <InputLabel
+              labelText="Last Name"
+              validation={lastName.isValid}
+              validationMessage={lastName.validationMessage}
+            ></InputLabel>
             <TextBox
               placeholderText="Enter your last name"
-              onChangeText={setLastName}
+              onChangeText={(text) => {
+                validateLastName(text, setLastName);
+              }}
             ></TextBox>
           </InputContainer>
           <InputContainer>
-            <InputLabel>Age</InputLabel>
+            <InputLabel
+              labelText="Age"
+              validation={age.isValid}
+              validationMessage={age.validationMessage}
+            ></InputLabel>
             <TextBox
+              keyboardType="numeric"
               placeholderText="Enter your age"
-              onChangeText={setAge}
+              onChangeText={(text) => {
+                validateAge(text, setAge);
+              }}
             ></TextBox>
           </InputContainer>
           <InputContainer>
-            <InputLabel>Email</InputLabel>
+            <InputLabel
+              labelText="Email"
+              validation={email.isValid}
+              validationMessage={email.validationMessage}
+            ></InputLabel>
             <TextBox
+              keyboardType="email-address"
               placeholderText="Enter your email"
-              onChangeText={setEmail}
+              onChangeText={(text) => {
+                validateEmail(text, setEmail);
+              }}
             ></TextBox>
           </InputContainer>
           <InputContainer>
-            <InputLabel>Password</InputLabel>
+            <InputLabel
+              labelText="Password"
+              validation={password.isValid}
+              validationMessage={password.validationMessage}
+            ></InputLabel>
             <TextBox
               placeholderText="Enter your password"
-              onChangeText={setPassword}
+              onChangeText={(text) => {
+                validatePassword(text, setPassword);
+              }}
             ></TextBox>
           </InputContainer>
           <InputContainer>
-            <InputLabel>Confirm Password</InputLabel>
+            <InputLabel
+              labelText="Confirm Password"
+              validation={confirmPassword.isValid}
+              validationMessage={confirmPassword.validationMessage}
+            ></InputLabel>
             <TextBox
               placeholderText="Confirm your password"
-              onChangeText={setConfirmPassword}
+              onChangeText={(text) => {
+                validateConfirmPassword(text, setConfirmPassword, password);
+              }}
             ></TextBox>
           </InputContainer>
           <View style={styles.buttonContainer}>
