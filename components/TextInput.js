@@ -1,12 +1,13 @@
 import { TextInput, StyleSheet } from "react-native";
 import { Colors } from "../constants/Colors";
 
-function TextBox({ placeholderText }) {
+function TextBox({ placeholderText, onChangeText }) {
   return (
     <TextInput
       style={styles.inputDesing}
       selectionColor={Colors.accentColor}
       placeholder={placeholderText}
+      onChangeText={(text) => onChangeText(text)}
     ></TextInput>
   );
 }
