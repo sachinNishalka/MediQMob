@@ -110,7 +110,10 @@ export default function App() {
             name="registerScreen"
             component={Register}
           ></Stack.Screen>
-          <Stack.Screen name="tabScreen" component={StackScreen}></Stack.Screen>
+          <Stack.Screen
+            name="homeScreen"
+            component={StackScreen}
+          ></Stack.Screen>
           <Stack.Screen
             options={{
               headerShown: true,
