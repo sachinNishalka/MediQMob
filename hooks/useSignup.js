@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { signup as singUpAPI } from "../services/apiAuth";
 import { ToastAndroid } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 
 export default function useSignup() {
   const navigate = useNavigation();
@@ -14,7 +14,8 @@ export default function useSignup() {
     mutationFn: singUpAPI,
     onSuccess: () => {
       ToastAndroid.show("Registered successfully!", ToastAndroid.SHORT);
-      navigate.navigate("loginScreen");
+      // navigate.navigate("loginScreen");
+      navigate.dispatch(StackActions.replace("loginScreen"));
     },
     onError: (error) => {
       console.log("Signup error:", error);
