@@ -4,7 +4,7 @@ import { Colors } from "../constants/Colors";
 function InputLabel({ labelText, validation = true, validationMessage = "" }) {
   return (
     <View style={styles.inputLabelContainer}>
-      <Text style={styles.inputLabel}>{labelText}</Text>;
+      <Text style={styles.inputLabel}>{labelText}</Text>
       {validation === false && (
         <Text style={styles.validationMessage}>* {validationMessage}</Text>
       )}
