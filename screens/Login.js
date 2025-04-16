@@ -1,4 +1,5 @@
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View, Alert } from "react-native";
+import { useState, useEffect } from "react";
 
 import InputContainer from "../components/InputContainer";
 import InputLabel from "../components/InputLabel";
@@ -8,7 +9,52 @@ import TextBox from "../components/TextInput";
 
 import { Colors } from "../constants/Colors";
 
+import useLogin from "../hooks/useLogin";
+
+import {
+  validateEmail,
+  validatePassword,
+  validateLoginFields,
+} from "../utils/validation";
+
 function Login({ navigation }) {
+  const [email, setEmail] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+
+  const [password, setPassword] = useState({
+    value: "",
+    isValid: true,
+    validationMessage: "",
+  });
+
+  const [validForm, setValidForm] = useState(false);
+
+  const { login, isPending, error } = useLogin();
+
+  useEffect(() => {
+    if (email.isValid && password.isValid) {
+      setValidForm(true);
+    } else {
+      setValidForm(false);
+    }
+  }, [email, password]);
+
+  useEffect(() => {
+    if (error) {
+      Alert.alert("Error", error.message);
+    }
+  }, [error]);
+
+  function handleLogin() {
+    validateLoginFields(email, setEmail, password, setPassword);
+    if (validForm) {
+      login({ email: email.value, password: password.value });
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -18,28 +64,43 @@ function Login({ navigation }) {
 
       <InputContainer>
         <InputLabel
-          labelText="Username"
-          validation={false}
-          validationMessage="Username is required"
+          labelText="Email"
+          validation={email.isValid}
+          validationMessage={email.validationMessage}
         ></InputLabel>
-        <TextBox placeholderText="Enter your username"></TextBox>
+        <TextBox
+          placeholderText="Enter your email"
+          onChangeText={(text) => {
+            validateEmail(text, setEmail);
+          }}
+        ></TextBox>
       </InputContainer>
 
       <InputContainer>
         <InputLabel
           labelText="Password"
-          validation={false}
-          validationMessage="Password is required"
+          validation={password.isValid}
+          validationMessage={password.validationMessage}
         ></InputLabel>
-        <TextBox placeholderText="Enter your password"></TextBox>
+        <TextBox
+          placeholderText="Enter your password"
+          onChangeText={(text) => {
+            // validatePassword(text, setPassword);
+            setPassword({
+              value: text,
+              isValid: true,
+              validationMessage: "",
+            });
+          }}
+        ></TextBox>
       </InputContainer>
 
       <View style={styles.buttonContainer}>
         <PrimaryButton
           buttonText="Login"
-          onPress={() => {
-            navigation.navigate("tabScreen");
-          }}
+          onPress={handleLogin}
+          disabled={isPending}
+          loading={isPending}
         ></PrimaryButton>
         <OutlineButton
           iconName="logo-google"

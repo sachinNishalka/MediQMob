@@ -170,3 +170,20 @@ export function validateAllFields(
     });
   }
 }
+
+export function validateLoginFields(email, setEmail, password, setPassword) {
+  if (email.value === "") {
+    setEmail({
+      value: email.value,
+      isValid: false,
+      validationMessage: "Email is required",
+    });
+  }
+  if (password.value === "") {
+    setPassword({
+      value: password.value,
+      isValid: false,
+      validationMessage: "Password is required",
+    });
+  }
+}
