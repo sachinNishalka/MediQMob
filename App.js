@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 
 import { Colors } from "./constants/Colors";
 
@@ -14,6 +15,10 @@ import Reports from "./screens/Reports";
 import Records from "./screens/Records";
 import DoctorDetails from "./screens/DoctorDetails";
 import AppointmentDetails from "./screens/AppointmentDetails";
+
+import useUser from "./hooks/useUser";
+import Loader from "./components/Loader";
+import Error from "./components/Error";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -87,6 +92,47 @@ function StackScreen() {
   );
 }
 
+function AppNavigator() {
+  const { user, isPending, isAuthenticated } = useUser();
+
+  if (isPending) return <Loader />;
+  if (!user || !isAuthenticated) {
+    return (
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="loginScreen" component={Login} />
+        <Stack.Screen name="registerScreen" component={Register} />
+      </Stack.Navigator>
+    );
+  }
+
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+        headerTintColor: Colors.primaryColor,
+      }}
+    >
+      <Stack.Screen name="homeScreen" component={StackScreen} />
+      <Stack.Screen
+        name="doctorDetails"
+        component={DoctorDetails}
+        options={{
+          headerShown: true,
+          headerTitle: "Make a channel",
+        }}
+      />
+      <Stack.Screen
+        name="appointmentDetails"
+        component={AppointmentDetails}
+        options={{
+          headerShown: true,
+          headerTitle: "Appointment",
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -99,38 +145,7 @@ export default function App() {
           },
         }}
       >
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            headerTintColor: Colors.primaryColor,
-          }}
-        >
-          <Stack.Screen name="loginScreen" component={Login}></Stack.Screen>
-          <Stack.Screen
-            name="registerScreen"
-            component={Register}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="homeScreen"
-            component={StackScreen}
-          ></Stack.Screen>
-          <Stack.Screen
-            options={{
-              headerShown: true,
-              headerTitle: "Make a channel",
-            }}
-            name="doctorDetails"
-            component={DoctorDetails}
-          ></Stack.Screen>
-          <Stack.Screen
-            name="appointmentDetails"
-            component={AppointmentDetails}
-            options={{
-              headerShown: true,
-              headerTitle: "Appointment",
-            }}
-          ></Stack.Screen>
-        </Stack.Navigator>
+        <AppNavigator></AppNavigator>
       </NavigationContainer>
     </QueryClientProvider>
   );
