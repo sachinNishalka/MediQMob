@@ -1,24 +1,23 @@
+import { Ionicons } from "@expo/vector-icons";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Ionicons } from "@expo/vector-icons";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+import { DevToolsBubble } from "react-native-react-query-devtools";
 
 import { Colors } from "./constants/Colors";
 
-import Login from "./screens/Login";
-import Register from "./screens/Register";
-import MyAppointments from "./screens/MyAppointments";
-import BookAnAppointment from "./screens/BookAnAppointment";
-import Reports from "./screens/Reports";
-import Records from "./screens/Records";
-import DoctorDetails from "./screens/DoctorDetails";
 import AppointmentDetails from "./screens/AppointmentDetails";
+import BookAnAppointment from "./screens/BookAnAppointment";
+import DoctorDetails from "./screens/DoctorDetails";
+import Login from "./screens/Login";
+import MyAppointments from "./screens/MyAppointments";
+import Records from "./screens/Records";
+import Register from "./screens/Register";
+import Reports from "./screens/Reports";
 
-import useUser from "./hooks/useUser";
 import Loader from "./components/Loader";
-import Error from "./components/Error";
+import useUser from "./hooks/useUser";
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -112,7 +111,7 @@ function AppNavigator() {
         headerTintColor: Colors.primaryColor,
       }}
     >
-      <Stack.Screen name="homeScreen" component={StackScreen} />
+      <Stack.Screen name="tabScreen" component={StackScreen} />
       <Stack.Screen
         name="doctorDetails"
         component={DoctorDetails}
@@ -146,6 +145,7 @@ export default function App() {
         }}
       >
         <AppNavigator></AppNavigator>
+        <DevToolsBubble />
       </NavigationContainer>
     </QueryClientProvider>
   );

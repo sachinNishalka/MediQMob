@@ -16,7 +16,7 @@ export default function useLogin() {
       console.log("Login successful");
       ToastAndroid.show("Login successful", ToastAndroid.SHORT);
       queryClient.setQueryData(["user"], user);
-      navigate.dispatch(StackActions.replace("homeScreen"));
+      navigate.dispatch(StackActions.replace("tabScreen"));
     },
     onError: (error) => {
       console.log("Login error:", error);
