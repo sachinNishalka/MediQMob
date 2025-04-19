@@ -23,9 +23,9 @@ export default function useCreateReservation() {
         })
       );
     },
-    onError: (error) => {
-      ToastAndroid.show("Error creating reservation", ToastAndroid.SHORT);
-    },
+    // onError: (error) => {
+    //   ToastAndroid.show("Error creating reservation", ToastAndroid.SHORT);
+    // },
   });
 
   return { createReservation, isPending, error };
