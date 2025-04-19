@@ -111,7 +111,7 @@ function AppNavigator() {
         headerTintColor: Colors.primaryColor,
       }}
     >
-      <Stack.Screen name="homeScreen" component={StackScreen} />
+      <Stack.Screen name="tabScreen" component={StackScreen} />
       <Stack.Screen
         name="doctorDetails"
         component={DoctorDetails}
