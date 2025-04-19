@@ -187,3 +187,52 @@ export function validateLoginFields(email, setEmail, password, setPassword) {
     });
   }
 }
+
+export function validateDate(date, setDate) {
+  if (date.value === "") {
+    setDate({
+      value: date,
+      isValid: false,
+      validationMessage: "Date is required",
+    });
+  } else {
+    setDate({
+      value: date,
+      isValid: true,
+      validationMessage: "",
+    });
+  }
+}
+
+export function validateTime(time, setTime) {
+  if (time.value === "") {
+    setTime({
+      value: time,
+      isValid: false,
+      validationMessage: "Time is required",
+    });
+  } else {
+    setTime({
+      value: time,
+      isValid: true,
+      validationMessage: "",
+    });
+  }
+}
+
+export function validateReservationForm(date, time, setDate, setTime) {
+  if (date.value === "") {
+    setDate({
+      value: date,
+      isValid: false,
+      validationMessage: "Date is required",
+    });
+  }
+  if (time.value === "") {
+    setTime({
+      value: time,
+      isValid: false,
+      validationMessage: "Time is required",
+    });
+  }
+}

@@ -48,7 +48,7 @@ export default function CustomCalendar({
     if (isSelectableDay(day.dateString)) {
       setSelected(day.dateString);
       if (onDateSelect) {
-        onDateSelect(day.dateString);
+        return onDateSelect(day.dateString);
       }
     }
   };
